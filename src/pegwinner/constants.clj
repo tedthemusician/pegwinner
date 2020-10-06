@@ -20,10 +20,10 @@
             {4 8, 11 12}
             {5 9, 12 13}])
 
+(defn initialize [h] {:moves h, :plugged false})
+
 (def empty-board
   (into (sorted-map)
         (map-indexed vector
-                     (map
-                       #(assoc % :plugged false)
-                       holes))))
+                     (map initialize holes))))
 
