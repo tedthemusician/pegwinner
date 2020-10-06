@@ -1,6 +1,5 @@
 (ns pegwinner.core
-  (:require [clojure.pprint :as pp]
-            [pegwinner.constants :as const]
+  (:require [pegwinner.constants :as const]
             [pegwinner.show :as show])
   (:gen-class))
 
@@ -24,6 +23,15 @@
   (let [middle (get-middle b from to)]
     (not (or (plugged? b middle) (plugged? b to)))))
 
+(defn hole-legal-moves [b n]
+  (let [moves (map first (get-in b [n :moves]))]
+    (filter #(legal? b n %) moves)))
+
+(defn board-legal-moves [b]
+  (let [plugged (map first (filter (fn [[n v]] (:plugged v)) b))
+        hole-move-pairs (map (fn [n] [n (hole-legal-moves b n)]) plugged)]
+    (into {} hole-move-pairs)))
+
 (defn unjump [b from to]
   (let [middle (get-middle b from to)]
     (-> b
@@ -32,6 +40,7 @@
         (insert-peg to))))
 
 (def filled-12 (insert-peg const/empty-board 12))
+(def filled-12-5 (insert-peg filled-12 5))
 
 (def filled-board (reduce #(insert-peg %1 %2) const/empty-board (range 15)))
 
