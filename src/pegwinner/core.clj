@@ -18,8 +18,6 @@
 
 (defn get-middle [b from to] (get-in b [from to]))
 
-(get-middle const/empty-board 12 5)
-
 (defn plugged? [b n] (get-in b [n :plugged]))
 
 (defn legal? [b from to]
@@ -36,8 +34,6 @@
 (def filled-12 (insert-peg const/empty-board 12))
 
 (def filled-board (reduce #(insert-peg %1 %2) const/empty-board (range 15)))
-
-(pprint filled-board)
 
 (defn -main
   "I don't do a whole lot ... yet."
