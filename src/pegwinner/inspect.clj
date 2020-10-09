@@ -37,5 +37,5 @@
 (defn start-pos?
   "Is this a starting position, i.e. is only one hole empty?"
   [b]
-  (= 1 (count (filter :plugged (vals b)))))
+  (= 1 (count (remove :plugged (vals b)))))
 
