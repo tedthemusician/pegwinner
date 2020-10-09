@@ -10,6 +10,8 @@
 ;    6    7    8    9
 ; 10   11   12   13   14
 
+(defrecord BoardState [board moves])
+
 (defn set-pegged
   "Set the plugged state of a hole"
   [state b n]
@@ -30,15 +32,16 @@
 
 (defn accum-move
   "Make a move and add that move to the list of previous moves"
-  [b prev-moves from to]
-  [(unjump b from to) (conj prev-moves [from to])])
+  [{:keys [board moves]} from to]
+  (->BoardState (unjump board from to) (conj moves [from to])))
 
-(defn make-next-legal-moves [[b prev-moves]]
+(defn make-next-legal-moves [board-state]
   "Rewind a board from its current state to all possible past states"
-  (let [legal-moves (ins/board-legal-moves b)]
-    (if (empty? legal-moves)
-      nil
-      (map #(apply accum-move b prev-moves %) legal-moves))))
+  (let [{:keys [board moves]} board-state
+        legal-moves (ins/board-legal-moves board)]
+    (if (and (not (start-pos? board)) (empty? legal-moves))
+      []
+      (map #(apply accum-move board-state %) legal-moves))))
 
 (def filled-12 (insert-peg const/empty-board 12))
 (def filled-12-5 (insert-peg filled-12 5))
