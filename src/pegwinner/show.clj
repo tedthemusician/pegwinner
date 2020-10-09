@@ -14,8 +14,8 @@
   (if (:plugged h) (format "%2d " i) " . "))
 
 (defn render-row
-  "Show indices or dots for a row. Indent the row as needed to show the board
-  as a triangle"
+  "Show indices or dots for a row. Indent the row as needed to show the whole
+  board as a triangle"
   [r]
   (let [num-holes (count r)
         padding (str/join (replicate (- 5 num-holes) "  "))

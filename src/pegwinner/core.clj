@@ -37,7 +37,8 @@
 
 (defn pairify
   "Convert a `from` and a list of `tos` to a list of [`from` `to`] vectors.
-  In other words, a cartesian product where the first set has only one element."
+  In other words, a cartesian product where the first set has only
+  one element."
   [[from [& tos]]]
   (map (fn [to] [from to]) tos))
 
@@ -50,7 +51,8 @@
     (mapcat pairify froms-with-tos)))
 
 (defn unjump
-  "Take a board from its current state to the state before a jump"
+  "Rewind a board by one move, from its current state to the state
+  before a jump"
   [b from to]
   (let [middle (get-middle b from to)]
     (-> b
@@ -69,6 +71,7 @@
   [(unjump b from to) (conj prev-moves [from to])])
 
 (defn make-next-legal-moves [[b prev-moves]]
+  "Rewind a board from its current state to all possible past states"
   (let [legal-moves (board-legal-moves b)]
     (if (empty? legal-moves)
       nil
