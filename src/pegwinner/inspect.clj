@@ -6,20 +6,20 @@
   [b from to]
   (get-in b [from :moves to]))
 
-(defn plugged? [b n] (get-in b [n :plugged]))
+(defn- plugged? [b n] (get-in b [n :plugged]))
 
-(defn legal?
+(defn- legal?
   "Can we unjump from `from` to `to` on board `b`?"
   [b from to]
   (let [middle (get-middle b from to)]
     (not (or (plugged? b middle) (plugged? b to)))))
 
-(defn hole-legal-moves [b n]
+(defn- hole-legal-moves [b n]
   "Every legal move for a given hole"
   (let [moves (map first (get-in b [n :moves]))]
     (filter #(legal? b n %) moves)))
 
-(defn pairify
+(defn- pairify
   "Convert a `from` and a list of `tos` to a list of [`from` `to`] vectors.
   In other words, a cartesian product where the first set has only
   one element."

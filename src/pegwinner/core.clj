@@ -79,7 +79,7 @@
      :samples (map rand-nth (vals winning-moves-by-hole))}))
 
 (defn -main
-  "I do a whole lot now"
+  "Show a user how to win for a given end state"
   [& args]
   (let [n (io/get-last-hole args)]
     (do
