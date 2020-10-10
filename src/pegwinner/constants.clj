@@ -26,4 +26,3 @@
   (into (sorted-map)
         (map-indexed vector
                      (map initialize holes))))
-
