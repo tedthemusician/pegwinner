@@ -18,8 +18,6 @@
             {4 8, 11 12}
             {5 9, 12 13}])
 
-(def filled-board (set (range 15)))
-
 (defn get-middle
   "What hole are we (un)jumping over?"
   [[from to]]
