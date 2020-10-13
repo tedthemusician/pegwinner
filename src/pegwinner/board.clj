@@ -1,5 +1,4 @@
 (ns pegwinner.board
-  (:require [clojure.set :as set])
   (:gen-class))
 
 (def holes [{3 1, 5 2}
