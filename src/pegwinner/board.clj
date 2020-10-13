@@ -20,10 +20,6 @@
 
 (def filled-board (set (range 15)))
 
-(defn empty-holes
-  "Which holes on the board are unplugged?"
-  [b] (set/difference filled-board b))
-
 (defn get-middle
   "What hole are we (un)jumping over?"
   [[from to]]
