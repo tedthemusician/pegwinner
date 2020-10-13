@@ -1,7 +1,6 @@
 (ns pegwinner.io
-  (:require [clojure.string :as str])
-  (:require [clojure.edn :as edn])
-  (:require [pegwinner.constants :as const])
+  (:require [clojure.string :as str]
+            [clojure.edn :as edn])
   (:gen-class))
 
 (def hole-groups [[0] [1 2] [3 4 5] [6 7 8 9] [10 11 12 13 14]])

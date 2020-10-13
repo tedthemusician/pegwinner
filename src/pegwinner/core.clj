@@ -1,7 +1,6 @@
 (ns pegwinner.core
   (:require [pegwinner.board :as board]
-            [pegwinner.io :as io]
-            [pegwinner.structures :refer :all])
+            [pegwinner.io :as io])
   (:gen-class))
 
 ; Our board is represented like this:
