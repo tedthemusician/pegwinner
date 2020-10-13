@@ -18,11 +18,11 @@
             {4 8, 11 12}
             {5 9, 12 13}])
 
-(def full-board (set (range 15)))
+(def filled-board (set (range 15)))
 
 (defn empty-holes
   "Which holes on the board are unplugged?"
-  [b] (set/difference full-board b))
+  [b] (set/difference filled-board b))
 
 (defn get-middle
   "What hole are we (un)jumping over?"
@@ -50,24 +50,16 @@
   (let [middle (get-middle [from to])]
   (not (or (contains? b middle) (contains? b to)))))
 
-(defn hole-legal-tos [b h]
+(defn hole-legal-moves [b h]
   "Every legal move for a given hole"
   (let [tos (map first (holes h))]
-    (filter #(legal? b [h %]) tos)))
-
-(defn- pairify
-  "Convert a `from` and a list of `tos` to a list of [`from` `to`] vectors.
-  In other words, a cartesian product where the first set has only
-  one element."
-  [[from [& tos]]]
-  (map (fn [to] [from to]) tos))
+    (map
+      (fn [to] [h to])
+      (filter #(legal? b [h %]) tos))))
 
 (defn board-legal-moves
   "Every legal move on the board"
-  [b]
-  (let [hole-move-pairs (map (fn [h] [h (hole-legal-tos b h)]) b)
-        froms-with-tos (filter (comp not-empty second) hole-move-pairs)]
-    (mapcat pairify froms-with-tos)))
+  [b] (mapcat (partial hole-legal-moves b) b))
 
 (defn start-pos?
   "Is this a starting position, i.e. is only one hole empty?"
