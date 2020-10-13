@@ -2,7 +2,8 @@
   (:require [clojure.edn :as edn]
             [pegwinner.constants :as const]
             [pegwinner.inspect :as ins]
-            [pegwinner.io :as io])
+            [pegwinner.io :as io]
+            [pegwinner.bits :as bits])
   (:gen-class))
 
 ; Our board is represented like this:
