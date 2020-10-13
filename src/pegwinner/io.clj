@@ -4,6 +4,8 @@
   (:require [pegwinner.constants :as const])
   (:gen-class))
 
+(def hole-groups [[0] [1 2] [3 4 5] [6 7 8 9] [10 11 12 13 14]])
+
 (defn- get-valid-input
   "Make sure the user gave us a valid hole number (1-15)"
   [input]
@@ -40,23 +42,22 @@
 
 (defn- render-hole
   "If plugged, show the hole's index; otherwise show a dot"
-  [[i h]]
-  (if (:plugged h) (format "%2d " i) " . "))
+  [b h]
+  (if (contains? b h) (format "%2d " h) " . "))
 
 (defn- render-row
   "Show indices or dots for a row. Indent the row as needed to show the whole
   board as a triangle"
-  [r]
+  [b r]
   (let [num-holes (count r)
         padding (str/join (replicate (- 5 num-holes) "  "))
-        repr (str/join " " (map render-hole r))]
+        repr (str/join " " (map (partial render-hole b) r))]
     (str padding repr))) 
 
 (defn- render-board
   "Render a board as indices and dots in a triangle"
   [b]
-  (let [rows (map (partial get-row b) const/hole-groups)]
-    (str/join "\n" (map render-row rows))))
+  (str/join "\n" (map (partial render-row b) hole-groups)))
 
 (def print-board (comp println render-board))
 
