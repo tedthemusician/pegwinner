@@ -1,20 +1,17 @@
 (ns pegwinner.core
-  (:require [clojure.edn :as edn]
+  (:require [pegwinner.bits :as bits]
             [pegwinner.constants :as const]
             [pegwinner.inspect :as ins]
             [pegwinner.io :as io]
-            [pegwinner.bits :as bits])
+            [pegwinner.structures :refer :all])
   (:gen-class))
 
 ; Our board is represented like this:
-;           0
-;         1    2
-;      3    4    5
-;    6    7    8    9
-; 10   11   12   13   14
-
-(defrecord BoardState [board prev-moves])
-(defrecord WinningSequence [hole moves])
+;           1
+;         2    3
+;      4    5    6
+;    7    8    9    10
+; 11   12   13   14   15
 
 (defn set-pegged
   "Set the plugged state of a hole"
