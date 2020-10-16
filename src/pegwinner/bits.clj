@@ -3,21 +3,21 @@
 
 (defn show-byte [b] (Integer/toBinaryString (bit-and 0xff b)))
 
-(defn- get-nibble
+(defn get-nibble
   "Get the four lowest bits of a number"
   [n] (bit-and 2r1111 n))
 
-(defn- pack-move
+(defn pack-move
   "Store a `from` and `to` into a pair of nibbles"
   [[from to]]
   (let [from-bits (bit-shift-left from 4)]
-    (unchecked-byte (+ from-bits to))))
+    (unchecked-byte (bit-or from-bits to))))
 
-(defn- unpack-move
+(defn unpack-move
   "Extract the `from` and `to` nibbles from a move byte"
   [packed-move]
-  [(get-nibble packed-move)
-   get-nibble (unsigned-bit-shift-right packed-move 4)])
+  [(get-nibble (unsigned-bit-shift-right packed-move 4))
+   (get-nibble packed-move)])
 
 (defn pack-moves
   "Pack each move into a byte; pad right with 0s"
