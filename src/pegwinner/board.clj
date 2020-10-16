@@ -52,9 +52,11 @@
 
 (defn board-legal-moves
   "Every legal move on the board"
-  [b] (mapcat (partial hole-legal-moves b) b))
+  [moves]
+  (let [b (get-state moves)]
+    (mapcat (partial hole-legal-moves b) b)))
 
 (defn start-pos?
   "Is this a starting position, i.e. is only one hole empty?"
-  [b] (= 14 (count b)))
+  [moves] (= 14 (count moves)))
 
