@@ -41,7 +41,8 @@
   "Can we unjump from `from` to `to` on board `b`?"
   [b [from to]]
   (let [middle (get-middle [from to])]
-  (not (or (contains? b middle) (contains? b to)))))
+  (and (contains? b from)
+       (not (or (contains? b middle) (contains? b to))))))
 
 (defn hole-legal-moves [b h]
   "Every legal move for a given hole"
@@ -58,5 +59,5 @@
 
 (defn start-pos?
   "Is this a starting position, i.e. is only one hole empty?"
-  [moves] (= 14 (count moves)))
+  [moves] (= 13 (count moves)))
 
