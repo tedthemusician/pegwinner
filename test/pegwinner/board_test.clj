@@ -3,11 +3,7 @@
             [pegwinner.board :as board]))
 
 (defn def-board-states [f]
-  (def sample-boards [#{3 4 7 12 13}
-                      #{0 5 10 12}
-                      #{3}
-                      #{1}])
-  (def sample-board (first sample-boards))
+  (def sample-board #{3 4 7 12 13})
   (f))
 
 (defn def-valid-moves [f]
@@ -118,20 +114,19 @@
     (is (= (set (board/hole-legal-moves sample-board 12))
            (set [[12 10] [12 5]]))))
   (testing "A hole with no legal moves returns an empty seq"
-    (is (= (board/hole-legal-moves sample-board 4) []))
-    (is (= (board/hole-legal-moves sample-board 13) []))
-    )
+    (is (empty? (board/hole-legal-moves sample-board 4)))
+    (is (empty? (board/hole-legal-moves sample-board 13))))
   (testing "An empty hole returns an empty seq"
-    (is (= (board/hole-legal-moves sample-board 0) []))
-    (is (= (board/hole-legal-moves sample-board 1) []))
-    (is (= (board/hole-legal-moves sample-board 2) []))
-    (is (= (board/hole-legal-moves sample-board 5) []))
-    (is (= (board/hole-legal-moves sample-board 6) []))
-    (is (= (board/hole-legal-moves sample-board 8) []))
-    (is (= (board/hole-legal-moves sample-board 9) []))
-    (is (= (board/hole-legal-moves sample-board 10) []))
-    (is (= (board/hole-legal-moves sample-board 11) []))
-    (is (= (board/hole-legal-moves sample-board 14) []))))
+    (is (empty? (board/hole-legal-moves sample-board 0)))
+    (is (empty? (board/hole-legal-moves sample-board 1)))
+    (is (empty? (board/hole-legal-moves sample-board 2)))
+    (is (empty? (board/hole-legal-moves sample-board 5)))
+    (is (empty? (board/hole-legal-moves sample-board 6)))
+    (is (empty? (board/hole-legal-moves sample-board 8)))
+    (is (empty? (board/hole-legal-moves sample-board 9)))
+    (is (empty? (board/hole-legal-moves sample-board 10)))
+    (is (empty? (board/hole-legal-moves sample-board 11)))
+    (is (empty? (board/hole-legal-moves sample-board 14)))))
 
 (deftest board-legality
   (testing "A board with legal moves returns exactly those legal moves"
@@ -144,7 +139,4 @@
       (is (= (first (second pairs)) (second (second pairs))))
       (is (= (first (nth pairs 2))  (second (nth pairs 2))))
       (is (= (first (nth pairs 3))  (second (nth pairs 3)))))))
-
-
-
 
