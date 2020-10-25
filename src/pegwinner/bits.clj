@@ -28,4 +28,4 @@
   "Unpack a set of bytes into moves and discard 0 padding"
   [move-bytes-padded]
   (let [move-bytes (take-while (comp not zero?) move-bytes-padded)]
-    (map unpack-move move-bytes)))
+    (vec (map unpack-move move-bytes))))
